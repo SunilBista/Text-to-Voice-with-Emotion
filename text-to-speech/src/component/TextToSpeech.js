@@ -18,45 +18,45 @@ const TextToSpeech = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    var emotionID = 4;
-    emotionID =
-      emotion === "Angry"
-        ? 1
-        : emotion === "Neutral"
-        ? 2
-        : emotion === "Sad"
-        ? 3
-        : 4;
-    try {
-      const response = await makeAPICall({
-        method: "POST",
-        endpoint: "/generate_audio",
-        payload: {
-          sentence: text,
-          emotion_id: emotionID,
-        },
-      });
-      setAudioSrc(response.audioUrl);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-
-    // //Testing audio
     // e.preventDefault();
     // setLoading(true);
     // setError(null);
-
-    // setTimeout(() => {
-    //   setAudioSrc(
-    //     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
-    //   );
+    // var emotionID = 4;
+    // emotionID =
+    //   emotion === "Angry"
+    //     ? 1
+    //     : emotion === "Neutral"
+    //     ? 2
+    //     : emotion === "Sad"
+    //     ? 3
+    //     : 4;
+    // try {
+    //   const response = await makeAPICall({
+    //     method: "POST",
+    //     endpoint: "/generate_audio",
+    //     payload: {
+    //       sentence: text,
+    //       emotion_id: emotionID,
+    //     },
+    //   });
+    //   setAudioSrc(response.audioUrl);
+    // } catch (error) {
+    //   setError(error.message);
+    // } finally {
     //   setLoading(false);
-    // }, 2000);
+    // }
+
+    //Testing audio
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    setTimeout(() => {
+      setAudioSrc(
+        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+      );
+      setLoading(false);
+    }, 2000);
   };
 
   const handleRedo = () => {
@@ -97,7 +97,7 @@ const TextToSpeech = () => {
               className="form-control"
             >
               <option value="Surprised">Surprised</option>
-              <option value="Happy">Happy</option>
+              <option value="Neutral">Neutral</option>
               <option value="Angry">Angry</option>
               <option value="Sad">Sad</option>
             </select>
