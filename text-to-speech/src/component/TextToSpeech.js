@@ -18,37 +18,45 @@ const TextToSpeech = () => {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    var emotionID = 4;
+    emotionID =
+      emotion === "Angry"
+        ? 1
+        : emotion === "Neutral"
+        ? 2
+        : emotion === "Sad"
+        ? 3
+        : 4;
+    try {
+      const response = await makeAPICall({
+        method: "POST",
+        endpoint: "/generate_audio",
+        payload: {
+          sentence: text,
+          emotion_id: emotionID,
+        },
+      });
+      setAudioSrc(response.audioUrl);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+
+    // //Testing audio
     // e.preventDefault();
     // setLoading(true);
     // setError(null);
 
-    // try {
-    //   const response = await makeAPICall({
-    //     method: "POST",
-    //     endpoint: "/text-to-speech",
-    //     payload: {
-    //       text,
-    //       emotion,
-    //     },
-    //   });
-    //   setAudioSrc(response.audioUrl);
-    // } catch (error) {
-    //   setError(error.message);
-    // } finally {
+    // setTimeout(() => {
+    //   setAudioSrc(
+    //     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+    //   );
     //   setLoading(false);
-    // }
-
-    //Testing audio
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    setTimeout(() => {
-      setAudioSrc(
-        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
-      );
-      setLoading(false);
-    }, 2000);
+    // }, 2000);
   };
 
   const handleRedo = () => {

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiClient = axios.create({
   //TODO: change to the hosted backend api domain
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: process.env.REACT_APP_EMOTION_URL || "http://127.0.0.1:5000/",
 });
 
 const makeAPICall = async ({
